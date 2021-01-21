@@ -5,7 +5,7 @@ interface HomeProps {}
 function Home(props: HomeProps) {
   return (
     <div className="wrapper-home-screen">
-      <div className="wrapper-exp-editor">
+      <div className="md:container md:mx-auto">
         <ExpressionEditor />
       </div>
     </div>

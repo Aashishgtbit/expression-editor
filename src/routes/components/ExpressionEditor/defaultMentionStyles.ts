@@ -44,7 +44,7 @@ export const defaultMentionStyles = {
       padding: "5px 15px",
       // borderBottom: "1px solid rgba(0,0,0,0.15)",
       "&focused": {
-        backgroundColor: "#3366ff",
+        backgroundColor: "#6d28d9",
         color: "#fff",
       },
     },

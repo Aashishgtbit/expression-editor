@@ -1,48 +1,104 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { Mention, MentionsInput } from "react-mentions";
 import { defaultMentionStyles } from "./defaultMentionStyles";
-import { mentionsTriggerData } from "../../../utils/fakeData";
+import { dataSet } from "../../../utils/fakeData";
+import "./style.scss";
+import { Parser } from "../Parser";
 interface ExpressionEditorProps {}
 
 function ExpressionEditor(props: ExpressionEditorProps) {
-  const [value, setValue] = useState("Hello");
-  // const [areaInputValue, updateAreaInputValue] = useState("");
-  // const [logicErrorText, setLogicErrorText] = useState("");
+  const [value, setValue] = useState("");
+  const [logicErrorText, setLogicErrorText] = useState("");
   const hanldeAreaInputValue = (val: any) => {
     setValue(val);
   };
 
-  // const highlighterSubString = document.getElementsByClassName(
-  //   "customMentionInput__highlighter__substring"
-  // );
+  const highlighterSubString = document.getElementsByClassName(
+    "customMentionInput__highlighter__substring"
+  );
+  console.log("highlighterSubString :", highlighterSubString);
+
+  const dataSetForLogic = useMemo(() => {
+    let data: any = [];
+    dataSet.forEach((item: string) => {
+      let obj = { id: item, display: item };
+      data.push(obj);
+    });
+    return data;
+  }, []);
+
+  const validate = useCallback(() => {
+    // const isExpressionValid = checkForValidLogicExpression(logicValue.value);
+    const parser = new Parser(value, dataSet);
+
+    debugger;
+    try {
+      const expr = parser.Parse();
+      const pretty = expr.PrettyMath();
+      console.log("pretty :", pretty);
+
+      setLogicErrorText("");
+    } catch (exp) {
+      console.log("exp :", exp);
+
+      const errorTokenData = exp.token;
+      if (errorTokenData && highlighterSubString.length > 0) {
+        // const errorSubString = value.substring(
+        //   errorTokenData.index,
+        //   errorTokenData.index + errorTokenData.text.length + 1
+        // );
+        const firstPart = value.substring(0, errorTokenData.index);
+        const lastPart = value.substring(
+          errorTokenData.index,
+          errorTokenData.index + errorTokenData.text.length + 1
+        );
+
+        const finalValue = `${firstPart}<span style="text-decoration:underline; text-decoration-color:red;text-decoration-style: wavy; background-color: rgba(255,0,0,0.2);" >${errorTokenData.text}</span>${lastPart}  `;
+
+        highlighterSubString[0].innerHTML = finalValue;
+        console.log("finalValue :", finalValue);
+      }
+
+      setLogicErrorText(exp.message);
+    }
+  }, [highlighterSubString, value]);
 
   return (
-    <div className="customLogicInput">
-      <MentionsInput
-        className="customMentionInput"
-        id="logicTextArea"
-        value={value}
-        onChange={(
-          event: { target: { value: string } },
-          newValue: string,
-          newPlainTextValue: string
-        ) => {
-          hanldeAreaInputValue(newPlainTextValue);
-        }}
-        style={defaultMentionStyles}
-      >
-        <Mention
-          trigger={/(?:^|)(\$([^\s\$]*))$/} // with space = /(?:^|\s)(\$([^\s\$]*))$/
-          markup={`$[____display____]`}
-          data={mentionsTriggerData}
-          displayTransform={(id, display) => `$'${display}'`}
-          appendSpaceOnAdd={true}
-        />
-      </MentionsInput>
-      <div className="bottom-button-bar">
-        <button>set</button>
+    <>
+      <div className="wrapper-expression-input">
+        <MentionsInput
+          className="customMentionInput"
+          id="logicTextArea"
+          value={value}
+          onChange={(
+            event: { target: { value: string } },
+            newValue: string,
+            newPlainTextValue: string
+          ) => {
+            hanldeAreaInputValue(newPlainTextValue);
+          }}
+          style={defaultMentionStyles}
+        >
+          <Mention
+            trigger={/(?:^|)(\$([^\s$]*))$/} // with space = /(?:^|\s)(\$([^\s\$]*))$/
+            markup={`$[____display____]`}
+            data={dataSetForLogic}
+            displayTransform={(id, display) => `$'${display}'`}
+            appendSpaceOnAdd={true}
+          />
+        </MentionsInput>
       </div>
-    </div>
+      <div className=" h-8 mt-4 flex  text-red-700 ">*{logicErrorText}</div>
+      <div className="flex-auto flex space-x-3">
+        <button
+          onClick={validate}
+          className="focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none w-32 h-8 mt-4 flex items-center justify-center rounded-full bg-purple-700 text-white"
+          type="submit"
+        >
+          Set
+        </button>
+      </div>
+    </>
   );
 }
 
