@@ -28,10 +28,7 @@ function ExpressionEditor(props: ExpressionEditorProps) {
   }, []);
 
   const validate = useCallback(() => {
-    // const isExpressionValid = checkForValidLogicExpression(logicValue.value);
     const parser = new Parser(value, dataSet);
-
-    debugger;
     try {
       const expr = parser.Parse();
       const pretty = expr.PrettyMath();
@@ -43,10 +40,6 @@ function ExpressionEditor(props: ExpressionEditorProps) {
 
       const errorTokenData = exp.token;
       if (errorTokenData && highlighterSubString.length > 0) {
-        // const errorSubString = value.substring(
-        //   errorTokenData.index,
-        //   errorTokenData.index + errorTokenData.text.length + 1
-        // );
         const firstPart = value.substring(0, errorTokenData.index);
         const lastPart = value.substring(
           errorTokenData.index,
@@ -56,7 +49,6 @@ function ExpressionEditor(props: ExpressionEditorProps) {
         const finalValue = `${firstPart}<span style="text-decoration:underline; text-decoration-color:red;text-decoration-style: wavy; background-color: rgba(255,0,0,0.2);" >${errorTokenData.text}</span>${lastPart}  `;
 
         highlighterSubString[0].innerHTML = finalValue;
-        console.log("finalValue :", finalValue);
       }
 
       setLogicErrorText(exp.message);
@@ -88,7 +80,7 @@ function ExpressionEditor(props: ExpressionEditorProps) {
           />
         </MentionsInput>
       </div>
-      <div className=" h-8 mt-4 flex  text-red-700 ">*{logicErrorText}</div>
+      <div className=" h-8 mt-4 flex  text-red-700 ">{logicErrorText}</div>
       <div className="flex-auto flex space-x-3">
         <button
           onClick={validate}
