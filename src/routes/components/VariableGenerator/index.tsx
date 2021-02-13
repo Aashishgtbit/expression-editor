@@ -28,7 +28,7 @@ const VariableGenerator = (
       <div className="text-l  font-bold">Variable Generator</div>
       <form onSubmit={handleSubmit}>
         <input
-          className=" pl-2 focus:border-purple-500  ring-1 ring-purple-700 focus:ring-1 focus:ring-purple-500 focus:outline-none rounded   h-8 mt-4  items-center justify-center "
+          className=" pl-2 focus:border-purple-500  ring-1 ring-purple-700 focus:ring-2 focus:ring-purple-500 focus:outline-none rounded   h-8 mt-4  items-center justify-center "
           type="text"
           value={variableName}
           placeholder="Enter varaible name"

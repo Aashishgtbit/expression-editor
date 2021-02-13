@@ -1,12 +1,15 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { Mention, MentionsInput } from "react-mentions";
 import { defaultMentionStyles } from "./defaultMentionStyles";
-import { dataSet } from "../../../utils/fakeData";
 import "./style.scss";
 import { Parser } from "../Parser";
+import { connect } from "react-redux";
+import { StoreState } from "../../../store";
 interface ExpressionEditorProps {}
 
-function ExpressionEditor(props: ExpressionEditorProps) {
+const ExpressionEditor = (
+  props: ExpressionEditorProps & ReturnType<typeof mapStateToProps>
+) => {
   const [value, setValue] = useState("");
   const [logicErrorText, setLogicErrorText] = useState("");
   const hanldeAreaInputValue = (val: any) => {
@@ -20,15 +23,15 @@ function ExpressionEditor(props: ExpressionEditorProps) {
 
   const dataSetForLogic = useMemo(() => {
     let data: any = [];
-    dataSet.forEach((item: string) => {
+    props.availableVariables.forEach((item: string) => {
       let obj = { id: item, display: item };
       data.push(obj);
     });
     return data;
-  }, []);
+  }, [props.availableVariables]);
 
   const validate = useCallback(() => {
-    const parser = new Parser(value, dataSet);
+    const parser = new Parser(value, props.availableVariables);
     try {
       const expr = parser.Parse();
       const pretty = expr.PrettyMath();
@@ -53,7 +56,7 @@ function ExpressionEditor(props: ExpressionEditorProps) {
 
       setLogicErrorText(exp.message);
     }
-  }, [highlighterSubString, value]);
+  }, [highlighterSubString, value, props.availableVariables]);
 
   return (
     <>
@@ -92,6 +95,12 @@ function ExpressionEditor(props: ExpressionEditorProps) {
       </div>
     </>
   );
-}
+};
 
-export default ExpressionEditor;
+const mapStateToProps = (state: StoreState) => {
+  return {
+    availableVariables: state.home.availableVariables,
+  };
+};
+
+export default connect(mapStateToProps)(ExpressionEditor);
