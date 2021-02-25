@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/expression-editor/static/css/main.f42cc797.chunk.css",
+    "main.js": "/expression-editor/static/js/main.af5749c4.chunk.js",
+    "main.js.map": "/expression-editor/static/js/main.af5749c4.chunk.js.map",
+    "runtime-main.js": "/expression-editor/static/js/runtime-main.4bcf29ce.js",
+    "runtime-main.js.map": "/expression-editor/static/js/runtime-main.4bcf29ce.js.map",
+    "static/js/2.0b3a3d24.chunk.js": "/expression-editor/static/js/2.0b3a3d24.chunk.js",
+    "static/js/2.0b3a3d24.chunk.js.map": "/expression-editor/static/js/2.0b3a3d24.chunk.js.map",
+    "static/js/3.819b8ae2.chunk.js": "/expression-editor/static/js/3.819b8ae2.chunk.js",
+    "static/js/3.819b8ae2.chunk.js.map": "/expression-editor/static/js/3.819b8ae2.chunk.js.map",
+    "index.html": "/expression-editor/index.html",
+    "static/css/main.f42cc797.chunk.css.map": "/expression-editor/static/css/main.f42cc797.chunk.css.map",
+    "static/js/2.0b3a3d24.chunk.js.LICENSE.txt": "/expression-editor/static/js/2.0b3a3d24.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4bcf29ce.js",
+    "static/js/2.0b3a3d24.chunk.js",
+    "static/css/main.f42cc797.chunk.css",
+    "static/js/main.af5749c4.chunk.js"
+  ]
+}
