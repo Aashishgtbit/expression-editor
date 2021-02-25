@@ -19,7 +19,7 @@ const routesConfig = [
 
 const AppRoutes = () => {
   return (
-    <Router>
+    <Router basename={process.env.REACT_APP_PUBLIC_URL}>
       <Switch>
         {routesConfig.map((config) => {
           return (

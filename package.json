@@ -1,6 +1,6 @@
 {
+  "homepage": "https://aashishgtbit.github.io/expression-editor",
   "name": "expression-editor",
-  "homepage": "http://Aashishgtbit.github.io/expression-editor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
