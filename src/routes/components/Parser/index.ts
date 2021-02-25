@@ -59,8 +59,7 @@ export class Parser {
         otherCharRegex.source,
       otherCharRegex.flags
     );
-    debugger;
-    // const reToken = /[0-9]+(\.[0-9]*)?([eE][\+\-]?[0-9]+)?| AND|OR|and|or|XOR|&&|<=|>=|<|>|!=|==|&|OR*|!|\|{1,2} |\$\'[A-Za-z_][A-Za-z_0-9]+\'?|\S/g;
+
     for (;;) {
       const match = reToken.exec(text);
       if (match === null) {

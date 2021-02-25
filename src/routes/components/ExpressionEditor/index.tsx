@@ -19,7 +19,6 @@ const ExpressionEditor = (
   const highlighterSubString = document.getElementsByClassName(
     "customMentionInput__highlighter__substring"
   );
-  console.log("highlighterSubString :", highlighterSubString);
 
   const dataSetForLogic = useMemo(() => {
     let data: any = [];
@@ -35,7 +34,7 @@ const ExpressionEditor = (
     try {
       const expr = parser.Parse();
       const pretty = expr.PrettyMath();
-      console.log("pretty :", pretty);
+      console.log("expr :", expr);
 
       setLogicErrorText("");
     } catch (exp) {

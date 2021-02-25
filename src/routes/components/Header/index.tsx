@@ -9,7 +9,15 @@ const Header = (props: HeaderProps) => {
       </div>
       <div className=" flex-1  text-white  h-18 flex items-center justify-between px-4 sm:px-6 lg:mx-6 lg:px-0 xl:mx-8">
         {" "}
-        <div className="ml-auto">Github </div>
+        <div className="ml-auto">
+          <a
+            href="https://github.com/Aashishgtbit/expression-editor"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Github
+          </a>
+        </div>
       </div>
     </div>
   );
